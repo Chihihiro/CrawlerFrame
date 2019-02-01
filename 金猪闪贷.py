@@ -1,11 +1,12 @@
-# !/usr/bin/env python
-# -*- coding:utf-8 -*-
-# @Time    : 2019年01月26日 11:08
-# @Author  : Joyce
-# @Project : CrawlerFrame
-# @File    : 三秒贷.py
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*- 
+# @Time : 2019/1/31 0031 15:27 
+# @Author : Chihiro 
+# @Site :  
+# @File : 金猪闪贷.py 
 # @Software: PyCharm
-# @Describe: 
+
+
 
 import json
 from time import sleep
@@ -51,11 +52,11 @@ class Spider(BaseSpider, Request):
 
 
 account_info = {
-    "login_url": "http://agent.3md.mzjgx.com/login.html",
+    "login_url": "http://partner.goldminesaas.com/partner/login.jsp",
     "area": 1,
-    "product": "三秒贷",
-    "username": "3mf25",
-    "password": "112233",
+    "product": "金猪闪贷",
+    "username": "wyw",
+    "password": "123456",
     "message_code": "",
     "channel": "",
     "requirements": "下款3%",
@@ -66,29 +67,3 @@ while True:
     product = Spider(account_info)
     product.get_info()
     sleep(600)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

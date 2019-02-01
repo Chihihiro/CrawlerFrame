@@ -12,7 +12,7 @@ import time
 from time import sleep
 from Frame.Crawler import BaseSpider
 from Frame.Request import Request
-
+from scrapy import Selector
 
 class Spider(BaseSpider, Request):
     def __init__(self, account):
@@ -21,15 +21,15 @@ class Spider(BaseSpider, Request):
     def get_info(self):
         # xpath信息
         xpath_info = {
-            "username": '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[1]/form/div[1]/div/div/input',
-            "password": '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[1]/form/div[2]/div/div/input',
-            "login_button": '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[1]/div',
-            "check_code": '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[1]/form/div[3]/div/div/input',
-            "code_image": '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/div[1]/form/div[3]/div/img',
-            "success_ele": '//*[@id="app"]/div/div[1]/div[3]/div/ul/li[2]/div'
+            "username": '//*[@id="loginform-username"]',
+            "password": '//*[@id="loginform-password"]',
+            "login_button": '//*[@id="loginForm"]/div[4]/div/button',
+            "check_code": '//*[@id="loginform-verifycode"]',
+            "code_image": '//*[@id="captchaimg"]',
+            "success_ele": '//*[@id="header"]/nav/div[3]/ul/li[1]/button'
         }
         # 获取cookie
-        cookies = self.login(xpath_info, image_size=(1036, 377, 1107, 408), image_type="30400")
+        cookies = self.login(xpath_info, image_size=(1002, 501, 1084, 536), image_type="10400")
         # 设置参数
         args = {
             'page': '1',
@@ -37,17 +37,17 @@ class Spider(BaseSpider, Request):
             'startTime': str(int(time.mktime(time.strptime(f"{self.today} 00:00:00", "%Y-%m-%d %H:%M:%S")))),
             'endTime': str(int(time.mktime(time.strptime(f"{self.tomorrow} 00:00:00", "%Y-%m-%d %H:%M:%S"))))
         }
-        info = json.loads(
-            self.request(
-                url="http://mxjz.52jhxinxin.com/admin_agent/mySCustomerList",
+        url = f"https://hlg-agent.qidiandian168.com/agent/customer?tag=new&_csrf=BHQBR5SlQDyhyyadxNFu_wdlgpsoML6rSQwkSqPt6JSS2WU94h6DDYtFbxFXA_Nq8OQ-w5l3mhaCaAl90Y88wg%3D%3D&agentId=&rqq={self.today}&rqz={self.today}"
+        html = self.request(
+                url=url,
                 cookie_dict=cookies,
-                method="post",
-                args=args
-            )
-        )['body']
+                method="get",)
         # 最终结果
+        info = Selector(text=html)
+        num = info.xpath("//div[@class='gopa']/span[1]/text()").re('共\d+页，(\d+)条数据')[0]
+        # print(num)
         result = {
-            "注册人数": info['total'],
+            "注册人数": num,
             "实名人数": "null",
             "申请人数": "null",
             "放款人数": "null",
@@ -60,26 +60,26 @@ class Spider(BaseSpider, Request):
 
 
 SH = {
-    "login_url": "http://mxjz.52jhxinxin.com/admin/mxjz.html#/sign-in",
-    "product": "萌新记账",
-    "username": "jie18",
+    "login_url": "https://hlg-agent.qidiandian168.com/site/login",
+    "product": "火龙果",
+    "username": "kaxi44",
     "password": "123456",
     "message_code": "",
     "channel": "",
     "requirements": "下款3%",
-    "area": "0",
+    "area": 0,
     "remark": ""
 }
 
 WD = {
-    "login_url": "http://mxjz.52jhxinxin.com/admin/mxjz.html#/sign-in",
-    "product": "萌新记账",
-    "username": "meng30",
+    "login_url": "https://hlg-agent.qidiandian168.com/site/login",
+    "product": "火龙果",
+    "username": "kaxi45",
     "password": "123456",
     "message_code": "",
     "channel": "",
-    "requirements": "下款3%",
-    "area": "1",
+    "requirements": "申请40% 下款3%",
+    "area": 1,
     "remark": ""
 
 }

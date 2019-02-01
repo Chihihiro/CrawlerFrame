@@ -6,8 +6,6 @@
 # @File : 佩奇钱包.py
 # @Software: PyCharm
 
-
-
 import time
 import json
 from time import sleep
@@ -72,7 +70,5 @@ while True:
         product = Spider(i)
         product.get_info()
     sleep(600)
-
-
 
 

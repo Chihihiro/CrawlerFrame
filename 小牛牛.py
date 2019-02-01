@@ -11,6 +11,7 @@ import json
 from time import sleep
 from Frame.Crawler import BaseSpider
 from Frame.Request import Request
+from pymongo import MongoClient
 
 
 class Spider(BaseSpider, Request):

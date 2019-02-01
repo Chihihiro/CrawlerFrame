@@ -71,7 +71,19 @@ SH = {
     "remark": ""
 }
 
-account_info = [SH]
+WD = {
+    "login_url": "http://jlg.lkdjhls.cn/admin/jlg.html#/sign-in",
+    "area": 1,
+    "product": "金来购",
+    "username": "奂16",
+    "password": "123456",
+    "message_code": "",
+    "channel": "",
+    "requirements": "下款3",
+    "remark": ""
+}
+
+account_info = [WD]
 
 while True:
     for i in account_info:

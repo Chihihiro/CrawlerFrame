@@ -41,9 +41,13 @@ class Spider(BaseSpider, Request):
             )
         html = Selector(text=info)
         # print(info)
-        num = html.xpath('//div[@class="gopa"]/span[1]/text()').re('共\d+页，(\d+)条数据')[0]
+        num = html.xpath('//div[@class="gopa"]/span[1]/text()').re('共\d+页，(\d+)条数据')
+        if num:
+            num = num[0]
+        else:
+            num = len(html.xpath('//*[@id="agent"]/table/tbody/tr'))
+
         # 最终结果
-        # print(num)
         result = {
             "注册人数": num,
             "实名人数": "null",

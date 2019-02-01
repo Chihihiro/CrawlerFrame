@@ -1,11 +1,11 @@
-# !/usr/bin/env python
-# -*- coding:utf-8 -*-
-# @Time    : 2019年01月26日 11:08
-# @Author  : Joyce
-# @Project : CrawlerFrame
-# @File    : 三秒贷.py
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*- 
+# @Time : 2019/1/31 0031 14:10 
+# @Author : Chihiro 
+# @Site :  
+# @File : 包稳借.py 
 # @Software: PyCharm
-# @Describe: 
+
 
 import json
 from time import sleep
@@ -20,18 +20,18 @@ class Spider(BaseSpider, Request):
     def get_info(self):
         # xpath信息
         xpath_info = {
-            "username": '//*[@id="userName"]',
-            "password": '//*[@id="userPwd"]',
-            "login_button": '/html/body/div/div/div/label[4]/a',
+            "username": '//*[@id="app"]/div/div/div/input[1]',
+            "password": '//*[@id="app"]/div/div/div/input[2]',
+            "login_button": '//body/div/div/div/div/div',
             "message_code": '',
             "check_code": '',
             "code_image": '',
-            "success_ele": '//*[@id="menu-user-face"]'
+            "success_ele": '//*[@id="header"]/div[2]/div[1]/div'
         }
         cookie = self.login(xpath_info)  # 获取cookie
         print(cookie)
         # json的url地址
-        json_url = f"http://agent.3md.mzjgx.com/loan/agentPlatform/queryCPA?startTime={self.today}+00%3A00%3A00&endTime={self.tomorrow}+00%3A00%3A00&agentId=361&page=1&rows=25"
+        json_url = f"http://natiedai.51bifang.cn/admin/channel/customer/page?page=1&limit=10&channelId=&startTime={self.today}"
         info = json.loads(
             self.request(json_url, method="get", cookie_dict=cookie)
         )["data"]
@@ -51,11 +51,11 @@ class Spider(BaseSpider, Request):
 
 
 account_info = {
-    "login_url": "http://agent.3md.mzjgx.com/login.html",
+    "login_url": "http://natiedai.51bifang.cn/#/login",
     "area": 1,
-    "product": "三秒贷",
-    "username": "3mf25",
-    "password": "112233",
+    "product": "包稳借",
+    "username": "13023288608",
+    "password": "a123456",
     "message_code": "",
     "channel": "",
     "requirements": "下款3%",
@@ -66,29 +66,4 @@ while True:
     product = Spider(account_info)
     product.get_info()
     sleep(600)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

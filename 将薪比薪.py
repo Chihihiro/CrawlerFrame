@@ -62,7 +62,7 @@ class Spider(BaseSpider, Request):
 
 
 SH = {
-    "login_url": "http://jhsz.zaixianjieshu.com/jhsz/H5/flowAdmin/index.html#/user/login",
+    "login_url": "http://jhszjxbx.zaixianjieshu.com/jhszjxbx/H5/flowAdmin/index.html#/user/login",
     "product": "将薪比薪",
     "username": "tong",
     "password": "123456",

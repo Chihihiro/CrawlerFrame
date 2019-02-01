@@ -1,11 +1,12 @@
-# !/usr/bin/env python
-# -*- coding:utf-8 -*-
-# @Time    : 2019年01月26日 11:14
-# @Author  : Joyce
-# @Project : CrawlerFrame
-# @File    : 佰花.py
+#!/usr/bin/env python 
+# -*- coding: utf-8 -*- 
+# @Time : 2019/1/30 0030 14:34 
+# @Author : Chihiro 
+# @Site :  
+# @File : 好好贷.py 
 # @Software: PyCharm
-# @Describe: 
+
+
 
 import time
 import json
@@ -33,7 +34,7 @@ class Spider(BaseSpider, Request):
         token = self.login(xpath_info, image_size=(1056, 372, 1128, 422), image_type="30400", token_field="accessToken")
         # json的url地址
         print(token)
-        json_url = f"http://47.110.6.255:2009/channel/admin/data"
+        json_url = f"http://47.110.6.255:2013/channel/admin/data"
         args = {
             'channelCode': self.channel,
             'merchantId': "0",
@@ -61,13 +62,13 @@ class Spider(BaseSpider, Request):
 
 
 AH = {
-    "login_url": "http://zjxg.zaixianjieshu.com/zjxg/H5/flowAdmin/index.html#/user/login",
-    "product": "佰花",
-    "username": "zfcps",
-    "password": "888888",
+    "login_url": "http://ahrzd.zaixianjieshu.com/ahrzd/H5/flowAdmin/index.html#/user/login",
+    "product": "好好贷",
+    "username": "yc",
+    "password": "123456",
     "message_code": "",
-    "channel": "2019012913RXZEC",
-    "requirements": "下款3%",
+    "channel": "2019012121QTKMR",
+    "requirements": "下款2%",
     "remark": "",
     "area": 1
 }
@@ -78,50 +79,5 @@ while True:
     for i in account_info:
         product = Spider(i)
         product.get_info()
-    sleep(1000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    sleep(600)
 

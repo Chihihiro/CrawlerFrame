@@ -51,7 +51,7 @@ class Spider(BaseSpider, Request):
             "实名人数": "null",
             "申请人数": "null",
             "放款人数": "null",
-            "备注": "",
+            "备注": "全国",
             "地区": self.area,
             "产品要求": self.requirements
         }
@@ -67,7 +67,7 @@ SH = {
     "message_code": "",
     "channel": "",
     "requirements": "下款3%",
-    "remark": "",
+    "remark": "全国",
     "area": 1
 }
 

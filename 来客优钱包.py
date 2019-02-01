@@ -53,7 +53,7 @@ class Spider(BaseSpider, Request):
             "实名人数": "null",
             "申请人数": "null",
             "放款人数": "null",
-            "备注": "",
+            "备注": self.remark,
             "地区": self.area,
             "产品要求": self.requirements
         }
@@ -69,7 +69,7 @@ AH = {
     "message_code": "",
     "channel": 30868702,
     "requirements": "申请40% 下款3%",
-    "remark": "",
+    "remark": "全国",
     "area": 1
 }
 
@@ -85,11 +85,15 @@ SH = {
     "area": 0
 }
 
-account_info = [SH, AH]
+account_info = [SH]
 
 while True:
-    for i in account_info:
-        product = Spider(i)
-        product.get_info()
-    sleep(600)
+    try:
+        for i in account_info:
+            product = Spider(i)
+            product.get_info()
+            sleep(600)
+    except:
+        continue
+
 
