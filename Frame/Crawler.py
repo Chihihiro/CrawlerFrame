@@ -19,6 +19,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import TimeoutException, NoAlertPresentException
+from selenium.webdriver.common.keys import Keys
 
 
 class BaseSpider:
@@ -30,7 +31,7 @@ class BaseSpider:
     """
     def __init__(self, account):
         self.driver = Chrome()  # 模拟浏览器
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 40)
         self.login_url = account["login_url"]  # 登录地址
         self.product = account["product"]  # 产品名称
         self.area = account["area"]  # 地区
@@ -93,6 +94,9 @@ class BaseSpider:
 
         # 输入帐号、密码
         try:
+            for i in range(10):
+                username.send_keys(Keys.BACK_SPACE)
+                password.send_keys(Keys.BACK_SPACE)
             username.send_keys(self.user_name)
             password.send_keys(self.password)
         except StaleElementReferenceException:

@@ -7,8 +7,7 @@
 # @Software: PyCharm
 # @Describe: 
 
-import json
-from scrapy import Selector
+from chardet import detect
 from requests import Session
 from Error import CrawlError
 
@@ -52,6 +51,9 @@ class Request:
             response = session.get(url, headers=custom_header if custom_header else headers)
         else:
             raise CrawlError.MethodError()
+        # 指定编码
+        code = detect(response.content)["encoding"]
+        response.encoding = code
         # 获取结果
         return response.text
 
